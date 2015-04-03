@@ -1,3 +1,10 @@
+# Talon
+A Vagrant + Puppet Highly Portable Configured Development Box
+
+TODO: Write summary
+
+
+Based on this good work:
 # Librarian-puppet-vagrant
 
 inspired by https://github.com/purple52/librarian-puppet-vagrant

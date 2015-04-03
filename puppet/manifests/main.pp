@@ -16,3 +16,10 @@ file { '/home/vagrant/.gitconfig':
   mode => 0755,
   target => '/vagrant/dotfiles/.gitconfig',
 }
+
+# Link to canonical .gitconfig
+file { '/home/vagrant/.gemrc':
+  ensure => link,
+  mode => 0755,
+  target => '/vagrant/dotfiles/.gemrc',
+}
