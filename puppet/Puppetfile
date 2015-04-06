@@ -14,4 +14,8 @@
 # Configuration begins here
 forge 'http://forge.puppetlabs.com'
 
+# Installs the ZSH and plugin set
 mod 'acme/ohmyzsh'
+
+# Adds github host to known hosts
+mod 'inkblot/github'

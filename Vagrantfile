@@ -22,6 +22,13 @@ Vagrant.configure("2") do |config|
   # Typical Middleman server
   config.vm.network "forwarded_port", guest: 4567, host: 4567
 
+  # Loosen permissions on shared folder items
+  config.vm.synced_folder './', '/vagrant', :mount_options => ["dmode=777","fmode=766"], create: true
+
+  # SSH Configuration
+  config.ssh.forward_agent = true
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
   # This shell provisioner installs librarian-puppet and runs it to install
   # puppet modules. This has to be done before the puppet provisioning so that
   # the modules are available when puppet tries to parse its manifests.
