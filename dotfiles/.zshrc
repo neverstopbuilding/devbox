@@ -85,3 +85,7 @@ alias c="clear"
 alias gg="git status -s"
 alias v="cd /vagrant"
 alias mux=tmuxinator
+
+# Finally, change to the vagrant folder
+echo 'Welcome to Talon!'
+cd /vagrant

@@ -23,3 +23,18 @@ file { '/home/vagrant/.gemrc':
   mode => 0755,
   target => '/vagrant/dotfiles/.gemrc',
 }
+
+# Hush Login
+package { 'update-motd':
+  ensure => 'purged'
+}
+
+package { 'landscape-common':
+  ensure => 'purged'
+}
+
+file { '.hushlogin':
+  path => '/home/vagrant/.hushlogin',
+  ensure => present,
+  mode => 0640
+}
