@@ -48,8 +48,7 @@ ZSH_CUSTOM=/vagrant/dotfiles/zsh_custom
 plugins=(git github gem git-flow npm tmuxinator rails tmux)
 
 # User configuration
-
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:$HOME/bin:/usr/local/bin:
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh

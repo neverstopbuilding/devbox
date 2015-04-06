@@ -41,3 +41,51 @@ file { '.hushlogin':
   ensure => present,
   mode => 0640
 }
+
+# Install and Setup RVM
+class { 'rvm': }
+rvm::system_user { vagrant: ; root: ; }
+
+rvm_system_ruby {
+  'ruby-2.0':
+    ensure      => 'present',
+    default_use => false;
+  'ruby-2.1':
+    ensure      => 'present',
+    default_use => false;
+  'ruby-2.2':
+    ensure      => 'present',
+    default_use => true;
+}
+
+rvm_gem {
+  'bundler-2.0':
+    name         => 'bundler',
+    ruby_version => 'ruby-2.0',
+    ensure       => latest,
+    require      => Rvm_system_ruby['ruby-2.0'];
+}
+
+rvm_gem {
+  'bundler-2.1':
+    name         => 'bundler',
+    ruby_version => 'ruby-2.1',
+    ensure       => latest,
+    require      => Rvm_system_ruby['ruby-2.1'];
+}
+
+rvm_gem {
+  'bundler-2.2':
+    name         => 'bundler',
+    ruby_version => 'ruby-2.2',
+    ensure       => latest,
+    require      => Rvm_system_ruby['ruby-2.2'];
+}
+
+rvm_gem {
+  'librarian-puppet-2.2':
+    name         => 'librarian-puppet',
+    ruby_version => 'ruby-2.2',
+    ensure       => latest,
+    require      => Rvm_system_ruby['ruby-2.2'];
+}

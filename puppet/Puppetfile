@@ -19,3 +19,6 @@ mod 'acme/ohmyzsh'
 
 # Adds github host to known hosts
 mod 'inkblot/github'
+
+# Setting up RVM
+mod 'maestrodev/rvm'
