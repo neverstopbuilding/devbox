@@ -24,6 +24,9 @@ file { '/home/vagrant/.gemrc':
   target => '/vagrant/dotfiles/.gemrc',
 }
 
+# Add github to known hosts
+include github
+
 # Hush Login
 package { 'update-motd':
   ensure => 'purged'
