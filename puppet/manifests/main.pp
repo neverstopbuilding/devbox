@@ -89,3 +89,30 @@ rvm_gem {
     ensure       => latest,
     require      => Rvm_system_ruby['ruby-2.2'];
 }
+
+# Install TMUX
+class { '::tmux': }
+File <| title == '/etc/tmux.conf' |> {
+  ensure => link,
+  mode => 0755,
+  content => undef,
+  source => undef,
+  target => '/vagrant/dotfiles/tmux.conf',
+}
+
+# Install TMuxinator
+rvm_gem {
+  'tmuxinator-2.2':
+    name         => 'tmuxinator',
+    ruby_version => 'ruby-2.2',
+    ensure       => latest,
+    require      => [Rvm_system_ruby['ruby-2.2'], Class['::tmux']];
+}
+
+file { '/home/vagrant/.tmuxinator':
+  ensure => 'link',
+  target => '/vagrant/dotfiles/.tmuxinator',
+  mode => 0755,
+  force => true,
+  replace => true,
+}
