@@ -4,6 +4,10 @@ A Vagrant + Puppet Highly Portable Configured Development Box
 TODO: Write summary
 
 
+## Known Issues
+- April 8, 2015: bundler is not available after entering an rvm controller project, requiring manually selecting the ruby version with rvm, detailed here: http://stackoverflow.com/questions/29520563/why-does-bundler-disapear-after-entering-project-directory-with-puppet-installed
+
+
 Based on this good work:
 # Librarian-puppet-vagrant
 

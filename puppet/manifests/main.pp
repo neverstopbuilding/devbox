@@ -47,47 +47,47 @@ class { 'rvm': }
 rvm::system_user { vagrant: ; root: ; }
 
 rvm_system_ruby {
-  'ruby-2.0':
+  'ruby-2.0.0':
     ensure      => 'present',
     default_use => false;
-  'ruby-2.1':
+  'ruby-2.1.5':
     ensure      => 'present',
     default_use => false;
-  'ruby-2.2':
+  'ruby-2.2.1':
     ensure      => 'present',
     default_use => true;
 }
 
 rvm_gem {
-  'bundler-2.0':
+  'bundler-2.0.0':
     name         => 'bundler',
-    ruby_version => 'ruby-2.0',
+    ruby_version => 'ruby-2.0.0',
     ensure       => latest,
-    require      => Rvm_system_ruby['ruby-2.0'];
+    require      => Rvm_system_ruby['ruby-2.0.0'];
 }
 
 rvm_gem {
-  'bundler-2.1':
+  'bundler-2.1.5':
     name         => 'bundler',
-    ruby_version => 'ruby-2.1',
+    ruby_version => 'ruby-2.1.5',
     ensure       => latest,
-    require      => Rvm_system_ruby['ruby-2.1'];
+    require      => Rvm_system_ruby['ruby-2.1.5'];
 }
 
 rvm_gem {
-  'bundler-2.2':
+  'bundler-2.2.1':
     name         => 'bundler',
-    ruby_version => 'ruby-2.2',
+    ruby_version => 'ruby-2.2.1',
     ensure       => latest,
-    require      => Rvm_system_ruby['ruby-2.2'];
+    require      => Rvm_system_ruby['ruby-2.2.1'];
 }
 
 rvm_gem {
-  'librarian-puppet-2.2':
+  'librarian-puppet-2.2.1':
     name         => 'librarian-puppet',
-    ruby_version => 'ruby-2.2',
+    ruby_version => 'ruby-2.2.1',
     ensure       => latest,
-    require      => Rvm_system_ruby['ruby-2.2'];
+    require      => Rvm_system_ruby['ruby-2.2.1'];
 }
 
 # Install TMUX
@@ -104,9 +104,9 @@ File <| title == '/etc/tmux.conf' |> {
 rvm_gem {
   'tmuxinator-2.2':
     name         => 'tmuxinator',
-    ruby_version => 'ruby-2.2',
+    ruby_version => 'ruby-2.2.1',
     ensure       => latest,
-    require      => [Rvm_system_ruby['ruby-2.2'], Class['::tmux']];
+    require      => [Rvm_system_ruby['ruby-2.2.1'], Class['::tmux']];
 }
 
 file { '/home/vagrant/.tmuxinator':
