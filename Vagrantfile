@@ -34,6 +34,20 @@ Vagrant.configure("2") do |config|
   # the modules are available when puppet tries to parse its manifests.
   config.vm.provision :shell, :path => "shell/librarian-puppet.sh"
 
+  # Copy local ssh key to guest to resolve ssh forwarding issues on windows
+  if Vagrant::Util::Platform.windows?
+    # You MUST have a ~/.ssh/id_rsa SSH key to copy to VM
+    if File.exists?(File.join(Dir.home, ".ssh", "id_rsa"))
+        # Read local machine's GitHub SSH Key (~/.ssh/id_rsa)
+        ssh_key = File.read(File.join(Dir.home, ".ssh", "id_rsa"))
+        # Copy it to VM as the /vagrant/.ssh/id_rsa key
+        config.vm.provision :shell, :inline => "echo 'Windows-specific: Copying local SSH Key to VM for provisioning...' && mkdir -p /home/vagrant/.ssh && chown -R vagrant /home/vagrant/.ssh && echo '#{ssh_key}' > /home/vagrant/.ssh/id_rsa && chgrp vagrant /home/vagrant/.ssh/id_rsa && chown vagrant /home/vagrant/.ssh/id_rsa && chmod 600 /home/vagrant/.ssh/id_rsa"
+    else
+        # Else, throw a Vagrant Error. Cannot successfully startup on Windows without an SSH Key!
+        raise Vagrant::Errors::VagrantError, "\n\nERROR: SSH Key not found at ~/.ssh/id_rsa (required on Windows)."
+    end
+  end
+
   # Now run the puppet provisioner. Note that the modules directory is entirely
   # managed by librarian-puppet
   config.vm.provision :puppet do |puppet|
