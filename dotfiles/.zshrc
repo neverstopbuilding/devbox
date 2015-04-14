@@ -84,3 +84,5 @@ alias c="clear"
 alias gg="git status -s"
 alias v="cd /vagrant"
 alias mux=tmuxinator
+
+export PATH="$PATH:$HOME/.rvm/scripts/rvm" # Add RVM to PATH for scripting

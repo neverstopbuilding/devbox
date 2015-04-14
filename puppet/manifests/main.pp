@@ -1,3 +1,105 @@
+$as_vagrant = 'sudo -u vagrant -H bash -l -c'
+$home = '/home/vagrant'
+
+Exec {
+  path => ['/usr/sbin', '/usr/bin', '/sbin', '/bin']
+}
+
+# --- Packages -----------------------------------------------------------------
+package { ['curl', 'gnupg', 'build-essential', 'git-flow', 'nodejs']:
+  ensure => installed
+}
+
+# --- Ruby ---------------------------------------------------------------------
+exec { 'import_rvm_signature':
+  command => "${as_vagrant} 'gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3'",
+  require => Package['gnupg'],
+  unless => "${as_vagrant} 'gpg --list-keys D39DC0E3'",
+}
+
+exec { 'install_rvm':
+  command => "${as_vagrant} 'curl -L https://get.rvm.io | bash -s stable -- --ignore-dotfiles'",
+  creates => "${home}/.rvm",
+  require => [Package['curl'], Exec['import_rvm_signature']],
+  logoutput => true
+}
+
+exec { 'install_ruby-2.0.0':
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm install ruby-2.0.0 --autolibs=enabled'",
+  unless => "${as_vagrant} '${home}/.rvm/bin/rvm list | grep 2.0.0'",
+  timeout => 600,
+  require => Exec['install_rvm'],
+  logoutput => true
+}
+
+exec { 'install_ruby-2.1.5':
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm install ruby-2.1.5 --autolibs=enabled'",
+  unless => "${as_vagrant} '${home}/.rvm/bin/rvm list | grep 2.1.5'",
+  timeout => 600,
+  require => Exec['install_rvm'],
+  logoutput => true
+}
+
+exec { 'install_ruby-2.2.1':
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm install ruby-2.2.1 --autolibs=enabled'",
+  unless => "${as_vagrant} '${home}/.rvm/bin/rvm list | grep 2.2.1'",
+  timeout => 600,
+  require => Exec['install_rvm'],
+  logoutput => true
+}
+
+exec { 'set_default_ruby':
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm alias create default ruby-2.2.1 && ${home}/.rvm/bin/rvm use default'",
+  unless => "${as_vagrant} '${home}/.rvm/bin/rvm list default | grep 2.2.1'",
+  require => Exec['install_ruby-2.2.1'],
+  logoutput => true
+}
+
+exec { 'install_bundler-2.2.1':
+  cwd => $home,
+  command => "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'",
+  creates => "${home}/.rvm/gems/ruby-2.2.1/bin/bundler",
+  require => Exec['set_default_ruby'],
+  logoutput => true
+}
+
+exec { 'install_bundler-2.2.1-global':
+  cwd => $home,
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm 2.2.1@global do gem install bundler --no-rdoc --no-ri'",
+  creates => "${home}/.rvm/gems/ruby-2.2.1@global/bin/bundler",
+  require => Exec['set_default_ruby'],
+  logoutput => true
+}
+
+exec { 'install_bundler-2.1.5-global':
+  cwd => $home,
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm 2.1.5@global do gem install bundler --no-rdoc --no-ri'",
+  creates => "${home}/.rvm/gems/ruby-2.1.5@global/bin/bundler",
+  require => Exec['install_ruby-2.1.5'],
+  logoutput => true
+}
+
+exec { 'install_bundler-2.0.0-global':
+  cwd => $home,
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm 2.0.0-p643@global do gem install bundler --no-rdoc --no-ri'",
+  creates => "${home}/.rvm/gems/ruby-2.0.0-p643@global/bin/bundler",
+  require => Exec['install_ruby-2.0.0'],
+  logoutput => true
+}
+
+exec { 'install_tmuxinator':
+  cwd => $home,
+  command => "${as_vagrant} 'gem install tmuxinator -v 0.6.9 --no-rdoc --no-ri'",
+  creates => "${home}/.rvm/gems/ruby-2.2.1/bin/tmuxinator",
+  require => [Exec['set_default_ruby'], Class['::tmux']],
+  logoutput => true
+}
+
+# --- NodeJS--------------------------------------------------------------------
+class { 'nodejs':
+  version => 'stable',
+}
+
 # Install OhMyZSH
 class { 'ohmyzsh': }
 ohmyzsh::install { ['root', 'vagrant']: }
@@ -24,9 +126,6 @@ file { '/home/vagrant/.gemrc':
   target => '/vagrant/dotfiles/.gemrc',
 }
 
-# Add github to known hosts
-include github
-
 # Hush Login
 package { 'update-motd':
   ensure => 'purged'
@@ -42,54 +141,6 @@ file { '.hushlogin':
   mode => 0640
 }
 
-# Install and Setup RVM
-class { 'rvm': }
-rvm::system_user { vagrant: ; root: ; }
-
-rvm_system_ruby {
-  'ruby-2.0.0':
-    ensure      => 'present',
-    default_use => false;
-  'ruby-2.1.5':
-    ensure      => 'present',
-    default_use => false;
-  'ruby-2.2.1':
-    ensure      => 'present',
-    default_use => true;
-}
-
-rvm_gem {
-  'bundler-2.0.0':
-    name         => 'bundler',
-    ruby_version => 'ruby-2.0.0',
-    ensure       => latest,
-    require      => Rvm_system_ruby['ruby-2.0.0'];
-}
-
-rvm_gem {
-  'bundler-2.1.5':
-    name         => 'bundler',
-    ruby_version => 'ruby-2.1.5',
-    ensure       => latest,
-    require      => Rvm_system_ruby['ruby-2.1.5'];
-}
-
-rvm_gem {
-  'bundler-2.2.1':
-    name         => 'bundler',
-    ruby_version => 'ruby-2.2.1',
-    ensure       => latest,
-    require      => Rvm_system_ruby['ruby-2.2.1'];
-}
-
-rvm_gem {
-  'librarian-puppet-2.2.1':
-    name         => 'librarian-puppet',
-    ruby_version => 'ruby-2.2.1',
-    ensure       => latest,
-    require      => Rvm_system_ruby['ruby-2.2.1'];
-}
-
 # Install TMUX
 class { '::tmux': }
 File <| title == '/etc/tmux.conf' |> {
@@ -100,19 +151,11 @@ File <| title == '/etc/tmux.conf' |> {
   target => '/vagrant/dotfiles/tmux.conf',
 }
 
-# Install TMuxinator
-rvm_gem {
-  'tmuxinator-2.2':
-    name         => 'tmuxinator',
-    ruby_version => 'ruby-2.2.1',
-    ensure       => latest,
-    require      => [Rvm_system_ruby['ruby-2.2.1'], Class['::tmux']];
-}
-
 file { '/home/vagrant/.tmuxinator':
   ensure => 'link',
   target => '/vagrant/dotfiles/.tmuxinator',
   mode => 0755,
   force => true,
   replace => true,
+  require => Exec['install_tmuxinator']
 }

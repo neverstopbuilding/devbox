@@ -17,11 +17,11 @@ forge 'http://forge.puppetlabs.com'
 # Installs the ZSH and plugin set
 mod 'acme/ohmyzsh'
 
-# Adds github host to known hosts
-mod 'inkblot/github'
-
-# Setting up RVM
-mod 'maestrodev/rvm'
-
 # Adding TMUX
 mod 'zanloy/tmux'
+
+mod 'puppetlabs/stdlib'
+
+# Adding Node JS (Later Version)
+mod 'maestrodev/wget'
+mod 'willdurand/nodejs'

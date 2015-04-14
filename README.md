@@ -1,8 +1,17 @@
 # Talon
 A Vagrant + Puppet Highly Portable Configured Development Box
 
-TODO: Write summary
-
+## Todo
+- Write summary and update this readme file
+- figure out a way to auto checkout, fetch and update all projects on build (maybe this can be a list of things in hiera... https://docs.puppetlabs.com/hiera/1/complete_example.html)
+- similarly, have a way to install packages I like
+- set up a basic postgres install (http://jes.al/2014/04/setup-dev-environment-using-vagrant-puppet-part-ii/)
+- figure out the ssh agent so i don't have to enter the key password all the time
+- mouse support
+- setup and configure vim:
+  - https://forge.puppetlabs.com/saz/vim
+  - http://statico.github.io/vim.html
+  - http://nvie.com/posts/how-i-boosted-my-vim/
 
 ## Known Issues
 - April 8, 2015: bundler is not available after entering an rvm controller project, requiring manually selecting the ruby version with rvm, detailed here: http://stackoverflow.com/questions/29520563/why-does-bundler-disapear-after-entering-project-directory-with-puppet-installed

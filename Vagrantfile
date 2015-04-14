@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 4567, host: 4567
 
   # Loosen permissions on shared folder items
-  config.vm.synced_folder './', '/vagrant', :mount_options => ["dmode=777","fmode=766"], create: true
+  config.vm.synced_folder './', '/vagrant', :mount_options => ["dmode=755","fmode=755"], create: true
 
   # SSH Configuration
   config.ssh.forward_agent = true

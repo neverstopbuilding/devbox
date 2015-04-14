@@ -1,2 +1,3 @@
 .vagrant
 home/**/*
+*.log
