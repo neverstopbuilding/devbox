@@ -12,6 +12,9 @@ A Vagrant + Puppet Highly Portable Configured Development Box
   - https://forge.puppetlabs.com/saz/vim
   - http://statico.github.io/vim.html
   - http://nvie.com/posts/how-i-boosted-my-vim/
+	- syntastic
+	- you complete me		
+	- knwang/dotfiles
 
 ## Known Issues
 - April 8, 2015: bundler is not available after entering an rvm controller project, requiring manually selecting the ruby version with rvm, detailed here: http://stackoverflow.com/questions/29520563/why-does-bundler-disapear-after-entering-project-directory-with-puppet-installed
