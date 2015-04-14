@@ -159,3 +159,18 @@ file { '/home/vagrant/.tmuxinator':
   replace => true,
   require => Exec['install_tmuxinator']
 }
+
+# Link .vimrc
+file { '/home/vagrant/.vimrc':
+  ensure => link,
+  mode => 0755,
+  target => '/vagrant/dotfiles/.vimrc',
+}
+
+# Install vundle
+vcsrepo { '/home/vagrant/.vim/bundle/Vundle.vim':
+	ensure => present,
+	provider => git,
+	source => "https://github.com/gmarik/Vundle.vim.git",
+	user => 'vagrant'
+}

@@ -25,3 +25,6 @@ mod 'puppetlabs/stdlib'
 # Adding Node JS (Later Version)
 mod 'maestrodev/wget'
 mod 'willdurand/nodejs'
+
+# Adding git repo control to automatically install vundle
+mod 'puppetlabs/vcsrepo'

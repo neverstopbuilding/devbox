@@ -24,8 +24,8 @@ root: /vagrant/home/clients/gotealeaf/build_production_quality_web_apps
 pre_tab: rvm use 2.1.5@build_production_quality_web_apps
 windows:
   - editor:
-      layout: f848,240x62,0,0{160x62,0,0,0,79x62,161,0[79x30,161,0,1,79x31,161,31,2]}
+      layout: f98d,230x59,0,0[230x40,0,0,0,230x18,0,41,4]
       panes:
         - vim
         -
-        - bundle exec middleman
+  - server:  bundle exec middleman
