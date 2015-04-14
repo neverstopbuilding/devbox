@@ -6,7 +6,8 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'spf13/vim-colors'
-Plugin 'blong/vim-airline'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 filetype plugin indent on
@@ -48,3 +49,9 @@ colorscheme molokai
 :nmap <C-e> :e#<CR>
 
 set pastetoggle=<F2>
+
+" ensure the powerline comes on by default versus at a split
+set laststatus=2
+set encoding=utf-8
+let g:airline_powerline_fonts = 1
+let g:airline_theme='molokai'
