@@ -18,7 +18,7 @@ exec { 'import_rvm_signature':
 }
 
 exec { 'install_rvm':
-  command => "${as_vagrant} 'curl -L https://get.rvm.io | bash -s stable -- --ignore-dotfiles'",
+  command => "${as_vagrant} 'curl -L https://get.rvm.io | bash -s stable'",
   creates => "${home}/.rvm",
   require => [Package['curl'], Exec['import_rvm_signature']],
   logoutput => true
