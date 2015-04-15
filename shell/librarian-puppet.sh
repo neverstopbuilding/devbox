@@ -46,6 +46,7 @@ if [ "${FOUND_YUM}" -eq '0' ]; then
 
 elif [ "${FOUND_APT}" -eq '0' ]; then
 
+  add-apt-repository -y ppa:git-core/ppa
   apt-get -q -y update
 
   # Make sure Git is installed
@@ -80,4 +81,3 @@ fi
 cp /vagrant/puppet/Puppetfile $PUPPET_DIR
 
 cd $PUPPET_DIR && librarian-puppet install
-

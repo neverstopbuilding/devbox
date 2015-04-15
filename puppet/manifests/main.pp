@@ -176,19 +176,19 @@ vcsrepo { '/home/vagrant/.vim/bundle/Vundle.vim':
 }
 
 # Configure postgres
-class {'postgresql':}
-class {'postgresql::server':
-  locale => 'es_ES.UTF-8'
+class { 'postgresql::globals':
+  encoding => 'UTF-8',
+  locale   => 'en_US.UTF-8',
+}->
+class { 'postgresql::server':
 }
 
-pg_user {'vagrant':
-  ensure => present,
-  superuser => true,
-  require => Class['postgres::server']
-}
+class { 'postgresql::client': }
 
-package { 'postgresql-contrib':
-  ensure => installed, 
-  require => Class['postgres::server']
-}
+class { 'postgresql::server::contrib': }
 
+postgresql::server::role { 'vagrant':
+  createdb => true,
+  createrole => true,
+  superuser => true
+}

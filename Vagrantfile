@@ -22,6 +22,13 @@ Vagrant.configure("2") do |config|
   # Typical Middleman server
   config.vm.network "forwarded_port", guest: 4567, host: 4567
 
+  # Live reload trigger
+  config.vm.network "forwarded_port", guest: 35_729, host: 35_729
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  config.vm.network "private_network", ip: "192.168.33.10"
+
   # Loosen permissions on shared folder items
   config.vm.synced_folder './', '/vagrant', :mount_options => ["dmode=755","fmode=755"], create: true
 

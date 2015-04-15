@@ -30,4 +30,6 @@ mod 'willdurand/nodejs'
 mod 'puppetlabs/vcsrepo'
 
 # Adding module for postgres install
-mod 'akumria/postgresql' 
+mod 'puppetlabs/apt'
+mod 'puppetlabs/postgresql'
+mod 'puppetlabs/concat'

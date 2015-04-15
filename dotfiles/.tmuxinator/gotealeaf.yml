@@ -29,3 +29,4 @@ windows:
         - vim
         -
   - server:  bundle exec middleman
+  - myflix3: cd /vagrant/home/clients/gotealeaf/myflix3
