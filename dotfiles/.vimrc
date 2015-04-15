@@ -11,6 +11,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
+Plugin 'bling/vim-bufferline'
 
 call vundle#end()
 filetype plugin indent on
@@ -77,7 +78,7 @@ map <C-l> <C-w>l
 map <silent> <leader>s :set spell!<CR>
 set spelllang=en_us
 highlight SpellBad cterm=underline ctermfg=Red ctermbg=Black
-
+highlight SpellCap cterm=underline ctermfg=51 ctermbg=Black
 " open help files in a vertical window
 autocmd FileType help wincmd L
 
@@ -87,4 +88,17 @@ set listchars=tab:▸\ ,eol:¬,trail:·
 highlight NonText ctermbg=233 ctermfg=236
 highlight SpecialKey ctermbg=233 ctermfg=236
 
+" Automatically wrap at 80 characters for Markdown
+" autocmd BufRead,BufNewFile *.md,*.markdown setlocal textwidth=80
+autocmd filetype markdown set nolist
+set wrap
+set linebreak
+set textwidth=80
+" turn this back on for specific source code types or even the below which would
+" be more helpful
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+" set colorcolumn=+1
 
+" bufferline statusline configuration
+let g:bufferline_echo = 0

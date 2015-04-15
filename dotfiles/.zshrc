@@ -45,7 +45,7 @@ ZSH_CUSTOM=/vagrant/dotfiles/zsh_custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github gem git-flow npm tmuxinator rails tmux)
+plugins=(git github gem git-flow npm tmuxinator rails tmux ssh-agent)
 
 # User configuration
 export PATH=$PATH:$HOME/bin:/usr/local/bin:

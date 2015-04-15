@@ -28,3 +28,6 @@ mod 'willdurand/nodejs'
 
 # Adding git repo control to automatically install vundle
 mod 'puppetlabs/vcsrepo'
+
+# Adding module for postgres install
+mod 'akumria/postgresql' 

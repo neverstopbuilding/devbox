@@ -6,7 +6,7 @@ Exec {
 }
 
 # --- Packages -----------------------------------------------------------------
-package { ['curl', 'gnupg', 'build-essential', 'git-flow', 'nodejs']:
+package { ['curl', 'gnupg', 'build-essential', 'git-flow', 'nodejs', 'libpq-dev']:
   ensure => installed
 }
 
@@ -40,33 +40,33 @@ exec { 'install_ruby-2.1.5':
   logoutput => true
 }
 
-exec { 'install_ruby-2.2.1':
-  command => "${as_vagrant} '${home}/.rvm/bin/rvm install ruby-2.2.1 --autolibs=enabled'",
-  unless => "${as_vagrant} '${home}/.rvm/bin/rvm list | grep 2.2.1'",
+exec { 'install_ruby-2.2.2':
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm install ruby-2.2.2 --autolibs=enabled'",
+  unless => "${as_vagrant} '${home}/.rvm/bin/rvm list | grep 2.2.2'",
   timeout => 600,
   require => Exec['install_rvm'],
   logoutput => true
 }
 
 exec { 'set_default_ruby':
-  command => "${as_vagrant} '${home}/.rvm/bin/rvm alias create default ruby-2.2.1 && ${home}/.rvm/bin/rvm use default'",
-  unless => "${as_vagrant} '${home}/.rvm/bin/rvm list default | grep 2.2.1'",
-  require => Exec['install_ruby-2.2.1'],
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm alias create default ruby-2.2.2 && ${home}/.rvm/bin/rvm use default'",
+  unless => "${as_vagrant} '${home}/.rvm/bin/rvm list default | grep 2.2.2'",
+  require => Exec['install_ruby-2.2.2'],
   logoutput => true
 }
 
-exec { 'install_bundler-2.2.1':
+exec { 'install_bundler-2.2.2':
   cwd => $home,
   command => "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'",
-  creates => "${home}/.rvm/gems/ruby-2.2.1/bin/bundler",
+  creates => "${home}/.rvm/gems/ruby-2.2.2/bin/bundler",
   require => Exec['set_default_ruby'],
   logoutput => true
 }
 
-exec { 'install_bundler-2.2.1-global':
+exec { 'install_bundler-2.2.2-global':
   cwd => $home,
-  command => "${as_vagrant} '${home}/.rvm/bin/rvm 2.2.1@global do gem install bundler --no-rdoc --no-ri'",
-  creates => "${home}/.rvm/gems/ruby-2.2.1@global/bin/bundler",
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm 2.2.2@global do gem install bundler --no-rdoc --no-ri'",
+  creates => "${home}/.rvm/gems/ruby-2.2.2@global/bin/bundler",
   require => Exec['set_default_ruby'],
   logoutput => true
 }
@@ -90,7 +90,7 @@ exec { 'install_bundler-2.0.0-global':
 exec { 'install_tmuxinator':
   cwd => $home,
   command => "${as_vagrant} 'gem install tmuxinator -v 0.6.9 --no-rdoc --no-ri'",
-  creates => "${home}/.rvm/gems/ruby-2.2.1/bin/tmuxinator",
+  creates => "${home}/.rvm/gems/ruby-2.2.2/bin/tmuxinator",
   require => [Exec['set_default_ruby'], Class['::tmux']],
   logoutput => true
 }
@@ -174,3 +174,21 @@ vcsrepo { '/home/vagrant/.vim/bundle/Vundle.vim':
 	source => "https://github.com/gmarik/Vundle.vim.git",
 	user => 'vagrant'
 }
+
+# Configure postgres
+class {'postgresql':}
+class {'postgresql::server':
+  locale => 'es_ES.UTF-8'
+}
+
+pg_user {'vagrant':
+  ensure => present,
+  superuser => true,
+  require => Class['postgres::server']
+}
+
+package { 'postgresql-contrib':
+  ensure => installed, 
+  require => Class['postgres::server']
+}
+
