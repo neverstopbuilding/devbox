@@ -12,6 +12,8 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-bufferline'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 call vundle#end()
 filetype plugin indent on
@@ -76,6 +78,7 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 map <silent> <leader>s :set spell!<CR>
+set spellfile=/vagrant/dotfiles/.vim-spell-en.utf-8.add
 set spelllang=en_us
 highlight SpellBad cterm=underline ctermfg=Red ctermbg=Black
 highlight SpellCap cterm=underline ctermfg=51 ctermbg=Black
@@ -93,7 +96,7 @@ highlight SpecialKey ctermbg=233 ctermfg=236
 autocmd filetype markdown set nolist
 set wrap
 set linebreak
-set textwidth=80
+"set textwidth=80
 " turn this back on for specific source code types or even the below which would
 " be more helpful
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -102,3 +105,9 @@ set textwidth=80
 
 " bufferline statusline configuration
 let g:bufferline_echo = 0
+
+set splitbelow
+set splitright
+
+" disable folding for markdown plugin
+let g:vim_markdown_folding_disabled=1

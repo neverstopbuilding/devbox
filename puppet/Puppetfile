@@ -33,3 +33,6 @@ mod 'puppetlabs/vcsrepo'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/postgresql'
 mod 'puppetlabs/concat'
+
+# Configure timezone
+mod 'bashtoni/timezone'
