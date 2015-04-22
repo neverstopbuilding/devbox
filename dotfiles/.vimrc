@@ -14,6 +14,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'SirVer/ultisnips'
 
 call vundle#end()
 filetype plugin indent on
@@ -68,7 +70,7 @@ let g:airline_theme='molokai'
 map <C-n> :NERDTreeToggle<CR>
 "set noesckeys
 set timeout
-set timeoutlen=300 
+set timeoutlen=300
 set ttimeoutlen=0
 
 " easy window navigation
@@ -91,6 +93,9 @@ set listchars=tab:▸\ ,eol:¬,trail:·
 highlight NonText ctermbg=233 ctermfg=236
 highlight SpecialKey ctermbg=233 ctermfg=236
 
+" highlight match charactars slightly differently
+highlight MatchParen cterm=bold ctermbg=237 ctermfg=208
+
 " Automatically wrap at 80 characters for Markdown
 " autocmd BufRead,BufNewFile *.md,*.markdown setlocal textwidth=80
 autocmd filetype markdown set nolist
@@ -111,3 +116,15 @@ set splitright
 
 " disable folding for markdown plugin
 let g:vim_markdown_folding_disabled=1
+
+" this will strip any trailing white space on save
+autocmd BufWritePre * :%s/\s\+$//e
+
+" set the snippets directory to the source controlled vagrant root
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+inoremap <C-e> <C-o>A
+
+

@@ -195,6 +195,15 @@ postgresql::server::role { 'vagrant':
 
 # Configure the timezone
 class { 'timezone':
-  region => 'America', 
+  region => 'America',
   locality => 'New_York'
+}
+
+# Link snippets directory
+file { '/home/vagrant/.vim/UltiSnips':
+  ensure => link,
+  mode => 0755,
+  force => true,
+  replace => true,
+  target => '/vagrant/dotfiles/.vim/UltiSnips',
 }
