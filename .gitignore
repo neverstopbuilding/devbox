@@ -1,3 +1,4 @@
 .vagrant
 home/**/*
 *.log
+.DS_Store
