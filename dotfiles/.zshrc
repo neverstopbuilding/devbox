@@ -82,6 +82,7 @@ fi
 alias ll="ls -lah"
 alias c="clear"
 alias gg="git status -s"
+alias gpr='git pull --rebase'
 alias v="cd /vagrant"
 alias mux=tmuxinator
 
