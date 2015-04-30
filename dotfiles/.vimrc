@@ -127,4 +127,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 inoremap <C-e> <C-o>A
 
-
+set clipboard=unnamed
+map <leader>yy "*yy
+map <leader>y "*y

@@ -25,6 +25,9 @@ Vagrant.configure("2") do |config|
   # Live reload trigger
   config.vm.network "forwarded_port", guest: 35_729, host: 35_729
 
+  # X Forwarding Port
+  config.vm.network "forwarded_port", guest: 6010, host: 6010
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.33.10"

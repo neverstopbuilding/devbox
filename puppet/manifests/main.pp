@@ -6,7 +6,7 @@ Exec {
 }
 
 # --- Packages -----------------------------------------------------------------
-package { ['curl', 'gnupg', 'build-essential', 'git-flow', 'nodejs', 'libpq-dev', 'tree']:
+package { ['curl', 'gnupg', 'build-essential', 'git-flow', 'nodejs', 'libpq-dev', 'tree', 'vim-gnome']:
   ensure => installed
 }
 
