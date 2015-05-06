@@ -83,6 +83,7 @@ alias ll="ls -lah"
 alias c="clear"
 alias gg="git status -s"
 alias gpr='git pull --rebase'
+alias gpm='git push origin master'
 alias v="cd /vagrant"
 alias mux=tmuxinator
 
