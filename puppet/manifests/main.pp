@@ -6,7 +6,7 @@ Exec {
 }
 
 # --- Packages -----------------------------------------------------------------
-package { ['curl', 'gnupg', 'build-essential', 'git-flow', 'nodejs', 'libpq-dev', 'tree', 'vim-gnome', 'libxslt-dev', 'libxml2-dev']:
+package { ['curl', 'gnupg', 'build-essential', 'git-flow', 'nodejs', 'libpq-dev', 'tree', 'vim-gnome', 'libxslt-dev', 'libxml2-dev', 'libqt4-dev', 'cmake', 'python-dev', 'libclang-3.6-dev']:
   ensure => installed
 }
 
