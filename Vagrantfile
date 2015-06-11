@@ -19,6 +19,9 @@ Vagrant.configure("2") do |config|
   # Typical Rails server
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
+  # Typical Thin Server
+  config.vm.network "forwarded_port", guest: 9292, host: 9292
+
   # Typical Middleman server
   config.vm.network "forwarded_port", guest: 4567, host: 4567
 

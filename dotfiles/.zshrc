@@ -90,3 +90,6 @@ alias mux=tmuxinator
 export PATH="$PATH:$HOME/.rvm/scripts/rvm" # Add RVM to PATH for scripting
 
 export TERM=xterm-256color
+
+# Disable stupid flow lock thing
+stty -ixon

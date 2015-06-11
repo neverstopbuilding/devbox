@@ -20,6 +20,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'mattn/emmet-vim'
 
 call vundle#end()
 filetype plugin indent on
