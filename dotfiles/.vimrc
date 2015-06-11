@@ -7,20 +7,23 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'spf13/vim-colors'
 Plugin 'bling/vim-airline'
-Plugin 'tpope/vim-fugitive'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'tpope/vim-surround'
 Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'mattn/emmet-vim'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-rake'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-surround'
 
 call vundle#end()
 filetype plugin indent on
@@ -52,6 +55,9 @@ set mouse=a
 
 " turn on syntax highlighting
 syntax on
+
+" enable the matchit plugin
+runtime macros/matchit.vim
 
 " quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -126,7 +132,7 @@ let g:vim_markdown_folding_disabled=1
 autocmd BufWritePre * :%s/\s\+$//e
 
 " set the snippets directory to the source controlled vagrant root
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
@@ -145,3 +151,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+augroup filetypedetect
+    au! BufRead,BufNewFile *_spec.rb    set filetype=ruby.rspec
+augroup END

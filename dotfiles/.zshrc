@@ -93,3 +93,7 @@ export TERM=xterm-256color
 
 # Disable stupid flow lock thing
 stty -ixon
+
+# Project shrotcuts
+alias p1="cd /vagrant/home/clients/gotealeaf/web_tictactoe"
+alias p2="cd /vagrant/home/clients/prescientsystem"
