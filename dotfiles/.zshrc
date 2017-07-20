@@ -39,7 +39,7 @@ CASE_SENSITIVE="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=/vagrant/dotfiles/zsh_custom
+ZSH_CUSTOM=/media/sf_wren/talon/dotfiles/zsh_custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -84,16 +84,13 @@ alias c="clear"
 alias gg="git status -s"
 alias gpr='git pull --rebase'
 alias gpm='git push origin master'
-alias v="cd /vagrant"
 alias mux=tmuxinator
-
-export PATH="$PATH:$HOME/.rvm/scripts/rvm" # Add RVM to PATH for scripting
+alias s='cd /home/jfox/share'
 
 export TERM=xterm-256color
 
 # Disable stupid flow lock thing
 stty -ixon
 
-# Project shrotcuts
-alias p1="cd /vagrant/home/clients/gotealeaf/web_tictactoe"
-alias p2="cd /vagrant/home/clients/prescientsystem"
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
